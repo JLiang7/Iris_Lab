@@ -4,12 +4,12 @@ Quick Mini Python app using Machine learning from dataprofessor
 
 Required Libraries:
 ```  
-     <br />Pandas
-     <br />streamlit
-     <br />scikit-learn
+     Pandas
+     Streamlit
+     Scikit-learn
 ```
   
 To Run: 
 ```  
-     <br />streamlit run iris-ml-app.py
+     Streamlit run iris-ml-app.py
 ```
