@@ -1,11 +1,10 @@
 import streamlit as st
 import pandas as pd
 from sklearn import datasets
-from sklearn.ensemble import RandomForestClassifier
+
 
 st.write("""
-# Simple Iris Flower Prediction App
-This app predicts the **Iris flower** type!
+# Iris Flower Prediction App
 """)
 
 st.sidebar.header('User Input Parameters')
@@ -31,18 +30,24 @@ iris = datasets.load_iris()
 X = iris.data
 Y = iris.target
 
-clf = RandomForestClassifier()
-clf.fit(X, Y)
+# Importing the random forest classifier model and fitting
+from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier(n_estimators = 10, criterion = 'entropy', random_state = 0)
+classifier.fit(X, Y)
 
-prediction = clf.predict(df)
-prediction_proba = clf.predict_proba(df)
+# Predicting on the test dataset 
+prediction = classifier.predict(df)
+prediction_proba = classifier.predict_proba(df)
 
 st.subheader('Class labels and their corresponding index number')
 st.write(iris.target_names)
 
 st.subheader('Prediction')
 st.write(iris.target_names[prediction])
-#st.write(prediction)
+
+st.subheader('Prediction Number')
+st.write(prediction)
 
 st.subheader('Prediction Probability')
 st.write(prediction_proba)
+
