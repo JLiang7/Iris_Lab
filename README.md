@@ -6,7 +6,7 @@
 - [Libraries](#libraries)
 - [To Run](#to-run)
 - [Modeling](#modeling)
-- [Insights](#insights)
+- [Insights-and-Conclusion](#insights-and-conclusion)
 
 ---
 
@@ -42,12 +42,14 @@ Streamlit run iris-ml-app.py
   >- Transform Data, Standardize using StandardScaler
   
 **4. Picking models**
-  >- Random Forest Regression and XGBoost
+  >- Random Forest Regression as the main Model
+  >- XGBoost to compare the Accuracy
   
 **5. Model Selection**
   >- Cross-Validation (Kfold)
-  
-## Insights
+---
+ 
+## Insights and Conclusion
 ```
 Achieved K-Fold Validation Accuracy of 95.4% with a Standard Deviation of 6.46%
 Accuracy Score of 97%
@@ -59,3 +61,8 @@ Confusion Matrix
 | 0  | 13 | 0  | 0  |
 | 1  | 0  | 16 | 0  |
 | 2  | 0  | 1  | 8  |
+
+> **Conclusion**
+
+>- Both the Random Forest and XGBoost has achieved similar Accuracy Scores
+>- The dataset is too small to come to any conclusion of which model is better
