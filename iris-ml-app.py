@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 from sklearn import datasets
 
 
@@ -30,10 +32,18 @@ iris = datasets.load_iris()
 X = iris.data
 Y = iris.target
 
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.25, random_state = 0)
+
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+
 # Importing the random forest classifier model and fitting
 from sklearn.ensemble import RandomForestClassifier
-classifier = RandomForestClassifier(n_estimators = 10, criterion = 'entropy', random_state = 0)
-classifier.fit(X, Y)
+classifier = RandomForestClassifier(n_estimators = 10)
+classifier.fit(X_train, y_train)
 
 # Predicting on the test dataset 
 prediction = classifier.predict(df)
@@ -51,3 +61,42 @@ st.write(prediction)
 st.subheader('Prediction Probability')
 st.write(prediction_proba)
 
+y_pred = classifier.predict(X_test)
+
+from sklearn.metrics import confusion_matrix, accuracy_score
+cm = confusion_matrix(y_test, y_pred)
+st.subheader('Confusion Matrix and Accuracy Score')
+st.write(cm)
+accuracy_score(y_test, y_pred)
+st.write(accuracy_score(y_test, y_pred))
+
+from sklearn.metrics import classification_report
+st.subheader('Classification Report')
+st.write(classification_report(y_test, y_pred))
+
+from sklearn.model_selection import cross_val_score
+accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, cv = 10)
+st.subheader('K-Fold Validation')
+st.write("Accuracy: {:.2f} %".format(accuracies.mean()*100))
+st.write("Standard Deviation: {:.2f} %".format(accuracies.std()*100))
+
+from xgboost import XGBClassifier
+classifier = XGBClassifier()
+classifier.fit(X_train, y_train)
+
+from sklearn.metrics import confusion_matrix, accuracy_score
+cm = confusion_matrix(y_test, y_pred)
+st.subheader('XGBoost Confusion Matrix and Accuracy Score')
+st.write(cm)
+accuracy_score(y_test, y_pred)
+st.write(accuracy_score(y_test, y_pred))
+
+from sklearn.metrics import classification_report
+st.subheader('XGBoost Classification Report')
+st.write(classification_report(y_test, y_pred))
+
+from sklearn.model_selection import cross_val_score
+accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, cv = 10)
+st.subheader('XGBoost K-Fold Validation')
+st.write("Accuracy: {:.2f} %".format(accuracies.mean()*100))
+st.write("Standard Deviation: {:.2f} %".format(accuracies.std()*100))
