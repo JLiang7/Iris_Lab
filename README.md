@@ -64,7 +64,7 @@ Confusion Matrix
 | 1  | 0  | 16 | 0  |
 | 2  | 0  | 1  | 8  |
 
-> **Conclusion**
+**Conclusion**
 
 >- Both the Random Forest and XGBoost has achieved similar Accuracy Scores
 >- The dataset is too small to come to any conclusion of which model is better
