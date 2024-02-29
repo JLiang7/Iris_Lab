@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib as plt
-from matplotlib import pyplot as pllt
+import matplotlib.pyplot as plt
 from sklearn import datasets
 
 
