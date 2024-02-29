@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from sklearn import datasets
 
 
@@ -31,6 +31,13 @@ st.write(df)
 iris = datasets.load_iris()
 X = iris.data
 Y = iris.target
+
+_, ax = plt.subplots()
+scatter = ax.scatter(iris.data[:, 0], iris.data[:, 1], c=iris.target)
+ax.set(xlabel=iris.feature_names[0], ylabel=iris.feature_names[1])
+_ = ax.legend(
+    scatter.legend_elements()[0], iris.target_names, loc="lower right", title="Classes"
+)
 
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.25, random_state = 0)
