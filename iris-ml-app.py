@@ -7,7 +7,7 @@ from sklearn import datasets
 #Page Setup
 st.set_page_config(
     page_title = 'Iris Flower Prediction App',
-    layout = 'wide',
+    layout = 'centered',
     initial_sidebar_state = 'expanded'
 )
 
