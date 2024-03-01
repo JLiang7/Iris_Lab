@@ -40,7 +40,7 @@ Y = iris.target
 
 st.subheader('Iris Data Table')
 #st.write(pd.iris)
-df_iris = pd.DataFrame(X, column = iris.feature_names)
+df_iris = pd.DataFrame(X, columns = iris.feature_names)
 df_iris['target'] = pd.Series(iris.target)
 df_iris.head()
 
