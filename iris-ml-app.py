@@ -11,6 +11,10 @@ st.set_page_config(
     initial_sidebar_state = 'expanded'
 )
 
+st.title("""
+Iris Flower Prediction App
+""")
+
 st.sidebar.header('User Input Parameters')
 
 def user_input_features():
