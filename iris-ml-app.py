@@ -4,6 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import datasets
 
+#Page Setup
+st.set_page_config(
+    page_title = 'Iris Flower Prediction App',
+    layout = 'wide'
+    initial_sidebar_state = 'expanded'
+)
 
 st.write("""
 # Iris Flower Prediction App
