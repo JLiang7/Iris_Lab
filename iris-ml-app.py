@@ -32,6 +32,7 @@ def user_input_features():
 df = user_input_features()
 
 st.subheader('User Input parameters')
+st.sidebar.write(df)
 st.write(df)
 
 iris = datasets.load_iris()
