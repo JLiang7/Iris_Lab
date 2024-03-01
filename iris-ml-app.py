@@ -49,7 +49,7 @@ X_test = sc.transform(X_test)
 
 # Importing the random forest classifier model and fitting
 from sklearn.ensemble import RandomForestClassifier
-classifier = RandomForestClassifier(n_estimators = 10)
+classifier = RandomForestClassifier(n_estimators = 100, random_state = 0)
 classifier.fit(X_train, y_train)
 
 # Predicting on the test dataset 
