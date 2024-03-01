@@ -68,5 +68,5 @@ Confusion Matrix
 
 >- Both the Random Forest and XGBoost has achieved similar Accuracy Scores
 >- The dataset is too small to come to any conclusion of which model is better
->- Not shown in this proj but the MAE fluxs a lot <br />
-    w/ this dataset, converge faster with scaled values but in the process, lose some info
+>- Not shown in this proj but the MAE fluctuates a lot with this dataset <br />
+    Also, converges faster with scaled values but in the process, lose some info
