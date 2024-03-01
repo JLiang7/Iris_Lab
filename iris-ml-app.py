@@ -38,6 +38,7 @@ iris = datasets.load_iris()
 X = iris.data
 Y = iris.target
 
+st.subheader('Iris Data Table')
 st.write(iris)
 
 _, ax = plt.subplots()
