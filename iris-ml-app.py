@@ -42,7 +42,7 @@ st.subheader('Iris Data Table')
 #st.write(pd.iris)
 df_iris = pd.DataFrame(X, columns = iris.feature_names)
 df_iris['target'] = pd.Series(iris.target)
-df_iris.head()
+st.write(df_iris)
 
 _, ax = plt.subplots()
 scatter = ax.scatter(iris.data[:, 0], iris.data[:, 1], c=iris.target)
