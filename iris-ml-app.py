@@ -38,6 +38,8 @@ iris = datasets.load_iris()
 X = iris.data
 Y = iris.target
 
+st.write(iris)
+
 _, ax = plt.subplots()
 scatter = ax.scatter(iris.data[:, 0], iris.data[:, 1], c=iris.target)
 ax.set(xlabel=iris.feature_names[0], ylabel=iris.feature_names[1])
