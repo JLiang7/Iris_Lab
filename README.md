@@ -45,6 +45,7 @@ Streamlit run iris-ml-app.py
   
 **4. Picking models**
   >- Random Forest Regression as the main Model
+  >- Included Linear Regression and Decision Tree Classifier for more insights
   >- XGBoost to compare the Accuracy
   
 **5. Model Selection**
