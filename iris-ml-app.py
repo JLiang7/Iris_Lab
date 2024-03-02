@@ -30,7 +30,7 @@ def user_input_features():
 df = user_input_features()
 
 st.sidebar.layout = 'centered'
-st.subheader('User Input Parameters')
+st.header('User Input Parameters')
 #st.write(df)
 st.dataframe(df, hide_index = True)
 #st.sidebar.subheader('User Input Parameters')
@@ -41,7 +41,7 @@ iris = datasets.load_iris()
 X = iris.data
 Y = iris.target
 
-st.subheader('Iris Data Table')
+st.header('Iris Data Table')
 #st.write(pd.iris)
 df_iris = pd.DataFrame(X, columns = iris.feature_names)
 df_iris['target'] = iris['target']
@@ -53,46 +53,67 @@ df_iris1 = pd.DataFrame(data=np.c_[iris['data'], iris['target']],
        .assign(species=lambda x: x['target'].map(dict(enumerate(iris['target_names']))))
 st.dataframe(df_iris1, hide_index = True)
 
-st.subheader('EDA - Mean Grouped by Class')
+st.header('EDA - Mean Grouped by Class')
 df_iris2 = df_iris1.drop(['target'], axis = 1 )
 groupby_species_mean = df_iris2.groupby('species').mean()
 st.write(groupby_species_mean)
 st.line_chart(groupby_species_mean.T)
 
-st.subheader('Class labels and Their Corresponding Index #')
+st.header('Class Labels and Their Corresponding Index #')
 df1 = pd.DataFrame(df_iris1.target.dropna().unique(), columns=['Species #'])
 df2 = pd.DataFrame(df_iris1.species.dropna().unique(), columns=['Species'])
 st.dataframe(pd.concat([df1, df2], axis = 1, ), hide_index = True)
 
 #Training
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.25, random_state = 42)
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.20, random_state = 42)
 
-#Scaling but this creates a lot of flux in MAE
+#Scaling but this creates a lot of fluctuations in MAE
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
-X_train = sc.fit_transform(X_train)
-X_test = sc.transform(X_test)
+#X_train = sc.fit_transform(X_train)
+#X_test = sc.transform(X_test)
 
-# Importing the random forest classifier model and fitting
+# Importing the Random Forest , linear regression, Decision Tree Classifier abd and fitting
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 classifier = RandomForestClassifier(max_depth = 2, max_features = 4, n_estimators = 200, random_state = 42)
+lr_model = LogisticRegression(max_iter = 1000)
+dt_model = DecisionTreeClassifier(criterion = 'gini', max_depth = 4, min_samples_split = 15)
 classifier.fit(X_train, y_train)
+lr_model.fit(X_train,y_train)
+dt_model.fit(X_train,y_train)
 
 # Predicting on the test dataset 
 prediction = classifier.predict(df)
+predictionlr = lr_model.predict(df)
+predictiondt = dt_model.predict(df)
 prediction_proba = classifier.predict_proba(df)
+pplr = lr_model.predict_proba(df)
+ppdt = dt_model.predict_proba(df)
 
-st.subheader('Prediction & Prediction Number')
+st.header('Prediction & Prediction Probability')
+st.subheader('Random Forest Classifier')
 p1 = pd.DataFrame(iris.target_names[prediction], columns = ['Species'])
 p2 = pd.DataFrame(prediction, columns = ['Species #'])
 st.dataframe(pd.concat([p1, p2], axis = 1), hide_index = True)
+st.dataframe(prediction_proba, hide_index = True)
+
+st.subheader('Logistic Regression')
+plr1 = pd.DataFrame(iris.target_names[predictionlr], columns = ['Species'])
+plr2 = pd.DataFrame(prediction, columns = ['Species #'])
+st.dataframe(pd.concat([plr1, plr2], axis = 1), hide_index = True)
+st.dataframe(pplr, hide_index = True)
+
+st.subheader('Decision Tree Classifier')
+pdt1 = pd.DataFrame(iris.target_names[predictiondt], columns = ['Species'])
+pdt2 = pd.DataFrame(prediction, columns = ['Species #'])
+st.dataframe(pd.concat([pdt1, pdt2], axis = 1), hide_index = True)
+st.dataframe(ppdt, hide_index = True)
 #st.write(iris.target_names[prediction])
 #st.write(prediction)
-
-st.subheader('Prediction Probability')
 #st.write(prediction_proba)
-st.dataframe(prediction_proba, hide_index = True)
 #pp = pd.DataFrame(prediction_proba, columns = ['Prob 1', 'Prob 2'])
 #st.dataframe(pp, hide_index = True)
 
@@ -135,3 +156,15 @@ accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, c
 st.subheader('XGBoost K-Fold Validation')
 st.write("Accuracy: {:.2f} %".format(accuracies.mean()*100))
 st.write("Standard Deviation: {:.2f} %".format(accuracies.std()*100))
+
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+lr_model = LogisticRegression(max_iter = 1000)
+dt_model = DecisionTreeClassifier(criterion = 'gini', max_depth = 4, min_samples_split = 15)
+rf_model = RandomForestClassifier(n_estimators = 70, criterion = 'gini',
+                                    max_depth = 4, min_samples_split = 15)
+lr_model.fit(X_train,y_train)
+dt_model.fit(X_train,y_train)
+rf_model.fit(X_train,y_train)
